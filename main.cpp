@@ -7,30 +7,20 @@ void UserEnter() {
         std::cin >> Numbers[i];
     }
 }
-int UpToRange() {
-    int firstnumber[2], secondnumber[2];
-    firstnumber[0] = 0;
-    firstnumber[1] = Range - 1;
-    secondnumber[0] = 0;
-    secondnumber[1] = Range - 1;
-    for ( int i = 0; i < 10; i++) {
-        if (firstnumber[1] - Range < Numbers[i] - Range &&
-        firstnumber[1] + Range > Numbers[i] + Range) {
-            firstnumber[0] = i;
-            firstnumber[1] = Numbers[i];
-        } else if (secondnumber[1] - Range < Numbers[i] - Range &&
-        secondnumber [1] + Range > Numbers[i] + Range) {
-            secondnumber[0] = i;
-            secondnumber[1] = Numbers[i];
+int UpToRange(int &FirstNum, int &SecondNum) {
+    for (int i = 0; i < 9; i++) {
+        if (Numbers[i] + Numbers[i+1] > Numbers[FirstNum] + Numbers[SecondNum] &&
+        Numbers[i] + Numbers[i+1] <= Range) {
+            FirstNum = i;
+            SecondNum = i+1;
         }
     }
-    return firstnumber[0], secondnumber[0];
+    return FirstNum, SecondNum;
 }
 int main() {
-    int first, second;
+    int FirstNum = 0, SecondNum = 0;
     UserEnter();
-    first, second = UpToRange();
-    
-    std::cout << "first number: " << first << "\nsecond number: " << second <<"\n";
+    UpToRange(FirstNum, SecondNum);
+    std::cout << "First Number:" << FirstNum << "\nSecond Number:" << SecondNum << "\n";
     return 0;
 }
